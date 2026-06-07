@@ -36,8 +36,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog")]
-visible = false
+[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText")]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 script = ExtResource("3_h2yge")
@@ -47,7 +46,6 @@ UserText = NodePath("ScrollContainer/VBoxContainer/User/HBoxContainer/Data")
 EmailText = NodePath("ScrollContainer/VBoxContainer/Email/HBoxContainer/Data")
 PasswordText = NodePath("ScrollContainer/VBoxContainer/Password/HBoxContainer/Data")
 DiscText = NodePath("ScrollContainer/VBoxContainer/Disc/Data")
-UploadDialog = NodePath("../../FileDialog")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBox/InfoPanel" unique_id=788964936]
 layout_mode = 1
@@ -201,10 +199,8 @@ always_on_top = true
 popup_window = true
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.png")
+filters = PackedStringArray("Image;*.png,*.jpg,*.jpeg,*.webp")
 use_native_dialog = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="HBox/InfoPanel" to="." method="_on_info_panel_gui_input"]
-[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Icon/VBoxContainer/UploadButton" to="HBox/InfoPanel" method="_on_upload_button_pressed"]
-[connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]

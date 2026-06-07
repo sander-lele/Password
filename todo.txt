@@ -1,6 +1,0 @@
-email checker
-add password
-showing passwords
-sorting
-search
-password generator

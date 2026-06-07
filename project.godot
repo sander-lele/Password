@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="password"
+run/main_scene="uid://ciofrljd4oixd"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[global_group]
+
+copy_button=""
 
 [physics]
 
