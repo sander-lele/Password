@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://cdtxk3xfm7df5" path="res://main.tres" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://c4kunjvqtjawx" path="res://PasswordManager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://di7efi7x0kd2i" path="res://info_panel.gd" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://b86b5xitgi3oy" path="res://icons/xmark.svg" id="4_1bvp3"]
 
 [node name="Main" type="Control" unique_id=1464287646 node_paths=PackedStringArray("PasswordHolder")]
 top_level = true
@@ -37,7 +38,6 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog")]
-visible = false
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 script = ExtResource("3_h2yge")
@@ -62,6 +62,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
+
+[node name="Exitbutton" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=501407458]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("4_1bvp3")
+icon_alignment = 1
 
 [node name="Icon" type="HBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=922629569]
 custom_minimum_size = Vector2(0, 100)
@@ -195,16 +202,18 @@ focus_mode = 1
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=883948438]
 oversampling_override = 1.0
-title = "Open a File"
 unresizable = true
 always_on_top = true
 popup_window = true
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.png")
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 use_native_dialog = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="ChangePasswordValue" from="HBox/InfoPanel" to="." method="_on_info_panel_change_password_value"]
+[connection signal="RefreshPasswordList" from="HBox/InfoPanel" to="." method="_on_info_panel_refresh_password_list"]
 [connection signal="gui_input" from="HBox/InfoPanel" to="." method="_on_info_panel_gui_input"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Icon/VBoxContainer/UploadButton" to="HBox/InfoPanel" method="_on_upload_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]

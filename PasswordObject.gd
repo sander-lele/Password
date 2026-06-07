@@ -24,23 +24,44 @@ func _init(Index : int,Password : String, Username: String, Email : String = "",
 func get_domain():
 	return _Domain
 
+func set_domain(Text : String):
+	_Domain = Text
+
 func get_password():
 	return _Password
+
+func set_password(Text : String):
+	_Password = Text
 
 func get_desc():
 	return _Desc
 
+func set_desc(Text):
+	_Desc = Text
+
 func get_expiry():
 	return _ExpireTime
+
+func set_expiry(Value : float):
+	_ExpireTime = Value
 
 func get_email():
 	return _Email
 
+func set_email(Text : String):
+	_Email = Text
+
 func get_username():
 	return _Username
+
+func set_username(Text : String):
+	_Username = Text
 
 func get_date_created():
 	return _DateCreated
 
 func get_icon():
 	return _Icon
+
+func set_icon(Icon : Texture2D):
+	_Icon = Icon

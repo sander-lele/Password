@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bca75262u3obp"
-path="res://.godot/imported/eye-closed.svg-8838a9b855d81abfab60f9e230fed1cb.ctex"
+uid="uid://b86b5xitgi3oy"
+path="res://.godot/imported/xmark.svg-ece82224cde5b9e9c407818b7872f536.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/eye-closed.svg"
-dest_files=["res://.godot/imported/eye-closed.svg-8838a9b855d81abfab60f9e230fed1cb.ctex"]
+source_file="res://icons/xmark.svg"
+dest_files=["res://.godot/imported/xmark.svg-ece82224cde5b9e9c407818b7872f536.ctex"]
 
 [params]
 

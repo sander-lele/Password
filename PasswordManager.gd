@@ -14,10 +14,12 @@ func _ready() -> void:
 	print(Time.get_date_string_from_unix_time(Passwords[0].get_date_created()))
 	create_password_list()
 
-func create_password(Password : String, Username : String, Email : String = "", Domain : String = "", Desc : String = "", ExpireTime : float = 0):
-	Passwords.append(PasswordObject.new(Passwords.size(),Password,Username,Email,Domain,Desc,ExpireTime))
+func create_password(Password : String, Username : String, Email : String = "", Domain : String = "", Desc : String = "", ExpireTime : float = 0,Icon : Texture2D = Texture2D.new()):
+	Passwords.append(PasswordObject.new(Passwords.size(),Password,Username,Email,Domain,Desc,ExpireTime,Icon))
 
 func create_password_list():
+	for PassBut : PasswordButton in PasswordHolder.get_children():
+		PassBut.queue_free()
 	for PassObj : PasswordObject in Passwords:
 		var PassButtonInst : PasswordButton = PasswordButtonScene.instantiate()
 		PassButtonInst.set_all(PassObj)
@@ -32,3 +34,24 @@ func password_button_pressed(PassObj):
 func _on_info_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		grab_focus()
+
+
+
+func _on_info_panel_change_password_value(PassObj : PasswordObject,ValueToChange : String,NewValue) -> void:
+	match(ValueToChange):
+		"Username":
+			PassObj.set_username(NewValue)
+		"Password":
+			PassObj.set_password(NewValue)
+		"Email":
+			PassObj.set_email(NewValue)
+		"Domain":
+			PassObj.set_domain(NewValue)
+		"Desc":
+			PassObj.set_desc(NewValue)
+		"Icon":
+			PassObj.set_icon(NewValue)
+
+
+func _on_info_panel_refresh_password_list() -> void:
+	create_password_list()
