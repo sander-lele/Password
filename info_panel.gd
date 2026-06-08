@@ -10,6 +10,7 @@ signal RefreshPasswordList
 @export var PasswordText : LineEdit
 @export var DiscText : TextEdit
 @export var UploadDialog : FileDialog
+@export var PasswordShowButton : Button
 
 var SelectedPassObj : PasswordObject
 
@@ -42,3 +43,47 @@ func _on_file_dialog_file_selected(path: String) -> void:
 func _on_exitbutton_pressed() -> void:
 	SelectedPassObj = null
 	visible = false
+
+
+func _on_data_text_submitted(new_text: String) -> void:
+		emit_signal("ChangePasswordValue",SelectedPassObj,"Domain",new_text)
+		emit_signal("RefreshPasswordList")
+
+
+func _on_user_text_submitted(new_text: String) -> void:
+		emit_signal("ChangePasswordValue",SelectedPassObj,"Username",new_text)
+		emit_signal("RefreshPasswordList")
+
+
+func _on_email_text_submitted(new_text: String) -> void:
+		emit_signal("ChangePasswordValue",SelectedPassObj,"Email",new_text)
+		emit_signal("RefreshPasswordList")
+
+
+func _on_disc_text_changed() -> void:
+	print("cat")
+	emit_signal("ChangePasswordValue",SelectedPassObj,"Desc",DiscText.text)
+
+
+func _on_domain_copy_pressed() -> void:
+	DisplayServer.clipboard_set(DomainText.text)
+
+
+func _on_user_copy_pressed() -> void:
+	DisplayServer.clipboard_set(UserText.text)
+
+
+func _on_email_copy_pressed() -> void:
+	DisplayServer.clipboard_set(EmailText.text)
+
+
+func _on_password_copy_pressed() -> void:
+	DisplayServer.clipboard_set(PasswordText.text)
+
+
+func _on_show_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		PasswordShowButton.icon = load("res://icons/eye.svg")
+	else:
+		PasswordShowButton.icon = load("res://icons/eye-closed.svg")
+	PasswordText.secret = !toggled_on

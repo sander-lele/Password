@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://c4kunjvqtjawx" path="res://PasswordManager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://di7efi7x0kd2i" path="res://info_panel.gd" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://b86b5xitgi3oy" path="res://icons/xmark.svg" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bca75262u3obp" path="res://icons/eye-closed.svg" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://c1hbqsxqm015d" path="res://icons/copy.svg" id="5_lquwl"]
 
 [node name="Main" type="Control" unique_id=1464287646 node_paths=PackedStringArray("PasswordHolder")]
 top_level = true
@@ -37,8 +39,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog")]
-custom_minimum_size = Vector2(500, 0)
+[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog", "PasswordShowButton")]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 script = ExtResource("3_h2yge")
 IconRect = NodePath("ScrollContainer/VBoxContainer/Icon/VBoxContainer/Data")
@@ -48,6 +50,7 @@ EmailText = NodePath("ScrollContainer/VBoxContainer/Email/HBoxContainer/Data")
 PasswordText = NodePath("ScrollContainer/VBoxContainer/Password/HBoxContainer/Data")
 DiscText = NodePath("ScrollContainer/VBoxContainer/Disc/Data")
 UploadDialog = NodePath("../../FileDialog")
+PasswordShowButton = NodePath("ScrollContainer/VBoxContainer/Password/HBoxContainer/Show")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBox/InfoPanel" unique_id=788964936]
 layout_mode = 1
@@ -63,12 +66,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="Exitbutton" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=501407458]
-custom_minimum_size = Vector2(50, 50)
+[node name="Label" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=1384358023]
 layout_mode = 2
-size_flags_horizontal = 8
-icon = ExtResource("4_1bvp3")
-icon_alignment = 1
+text = "Muuda parooli:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Icon" type="HBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=922629569]
 custom_minimum_size = Vector2(0, 100)
@@ -83,6 +85,7 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 4
+expand_mode = 2
 
 [node name="UploadButton" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Icon/VBoxContainer" unique_id=1314143529]
 layout_mode = 2
@@ -110,6 +113,8 @@ select_all_on_focus = true
 [node name="Copy" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Domain/HBoxContainer" unique_id=767265399 groups=["copy_button"]]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+icon = ExtResource("5_lquwl")
+icon_alignment = 1
 
 [node name="User" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=84520705]
 layout_mode = 2
@@ -132,6 +137,8 @@ select_all_on_focus = true
 [node name="Copy" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/User/HBoxContainer" unique_id=1310957740 groups=["copy_button"]]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+icon = ExtResource("5_lquwl")
+icon_alignment = 1
 
 [node name="Email" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=698281019]
 layout_mode = 2
@@ -154,6 +161,8 @@ select_all_on_focus = true
 [node name="Copy" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Email/HBoxContainer" unique_id=653600359 groups=["copy_button"]]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+icon = ExtResource("5_lquwl")
+icon_alignment = 1
 
 [node name="Password" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=396272977]
 layout_mode = 2
@@ -178,14 +187,54 @@ secret = true
 [node name="Show" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer" unique_id=463878746]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+toggle_mode = true
+icon = ExtResource("5_7mycd")
+icon_alignment = 1
 
 [node name="Copy" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer" unique_id=1109175471 groups=["copy_button"]]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+icon = ExtResource("5_lquwl")
+icon_alignment = 1
 
 [node name="New" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer" unique_id=248226129]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+
+[node name="Expiry" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=294393851]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Text" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry" unique_id=780188526]
+layout_mode = 2
+text = "Aegub:"
+
+[node name="ExpiryData" type="HBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry" unique_id=1043594939]
+layout_mode = 2
+
+[node name="YearText" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1986576494]
+layout_mode = 2
+text = "Aasta:"
+
+[node name="YearData" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=702930928]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MonthText2" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1602707693]
+layout_mode = 2
+text = "Kuu:"
+
+[node name="MonthData2" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1640436839]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MonthText3" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=837663517]
+layout_mode = 2
+text = "Päev:"
+
+[node name="MonthData3" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1073247642]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Disc" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=15542256]
 layout_mode = 2
@@ -200,8 +249,16 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 focus_mode = 1
 
+[node name="Exitbutton" type="Button" parent="HBox/InfoPanel/ScrollContainer" unique_id=501407458]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("4_1bvp3")
+icon_alignment = 1
+
 [node name="FileDialog" type="FileDialog" parent="." unique_id=883948438]
 oversampling_override = 1.0
+title = "Open a File"
 unresizable = true
 always_on_top = true
 popup_window = true
@@ -214,6 +271,15 @@ use_native_dialog = true
 [connection signal="ChangePasswordValue" from="HBox/InfoPanel" to="." method="_on_info_panel_change_password_value"]
 [connection signal="RefreshPasswordList" from="HBox/InfoPanel" to="." method="_on_info_panel_refresh_password_list"]
 [connection signal="gui_input" from="HBox/InfoPanel" to="." method="_on_info_panel_gui_input"]
-[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Icon/VBoxContainer/UploadButton" to="HBox/InfoPanel" method="_on_upload_button_pressed"]
+[connection signal="text_submitted" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Domain/HBoxContainer/Data" to="HBox/InfoPanel" method="_on_data_text_submitted"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Domain/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_domain_copy_pressed"]
+[connection signal="text_submitted" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/User/HBoxContainer/Data" to="HBox/InfoPanel" method="_on_user_text_submitted"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/User/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_user_copy_pressed"]
+[connection signal="text_submitted" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Email/HBoxContainer/Data" to="HBox/InfoPanel" method="_on_email_text_submitted"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Email/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_email_copy_pressed"]
+[connection signal="toggled" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/Show" to="HBox/InfoPanel" method="_on_show_toggled"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_password_copy_pressed"]
+[connection signal="text_changed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Disc/Data" to="HBox/InfoPanel" method="_on_disc_text_changed"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]
