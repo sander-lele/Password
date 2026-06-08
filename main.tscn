@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://b86b5xitgi3oy" path="res://icons/xmark.svg" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bca75262u3obp" path="res://icons/eye-closed.svg" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://c1hbqsxqm015d" path="res://icons/copy.svg" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://dqe0odaql33qf" path="res://icons/plus.svg" id="6_5vw27"]
+[ext_resource type="Script" uid="uid://iu2l4lggpwbw" path="res://expiry_data.gd" id="6_272bh"]
+[ext_resource type="Script" uid="uid://15htgu216xmn" path="res://password_gen.gd" id="9_kek77"]
 
 [node name="Main" type="Control" unique_id=1464287646 node_paths=PackedStringArray("PasswordHolder")]
 top_level = true
@@ -59,6 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scroll_vertical = 44
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer" unique_id=755959370]
 layout_mode = 2
@@ -179,7 +183,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
-editable = false
 clear_button_enabled = true
 select_all_on_focus = true
 secret = true
@@ -200,8 +203,11 @@ icon_alignment = 1
 [node name="New" type="Button" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer" unique_id=248226129]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+icon = ExtResource("6_5vw27")
+icon_alignment = 1
 
 [node name="Expiry" type="VBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer" unique_id=294393851]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -211,6 +217,9 @@ text = "Aegub:"
 
 [node name="ExpiryData" type="HBoxContainer" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry" unique_id=1043594939]
 layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+script = ExtResource("6_272bh")
 
 [node name="YearText" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1986576494]
 layout_mode = 2
@@ -219,20 +228,21 @@ text = "Aasta:"
 [node name="YearData" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=702930928]
 layout_mode = 2
 size_flags_horizontal = 4
+rounded = true
 
-[node name="MonthText2" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1602707693]
+[node name="MonthText" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1602707693]
 layout_mode = 2
 text = "Kuu:"
 
-[node name="MonthData2" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1640436839]
+[node name="MonthData" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1640436839]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="MonthText3" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=837663517]
+[node name="YearText2" type="Label" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=837663517]
 layout_mode = 2
 text = "Päev:"
 
-[node name="MonthData3" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1073247642]
+[node name="DayData" type="SpinBox" parent="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" unique_id=1073247642]
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -267,6 +277,79 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 use_native_dialog = true
 
+[node name="PasswordGen" type="ColorRect" parent="." unique_id=1246487249 node_paths=PackedStringArray("ResultString", "LenghtSlider", "CapCheck", "NumCheck", "SymCheck")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+script = ExtResource("9_kek77")
+ResultString = NodePath("Panel/VBoxContainer/Result")
+LenghtSlider = NodePath("Panel/VBoxContainer/HSlider")
+CapCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Caps")
+NumCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Nums")
+SymCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Syms")
+
+[node name="Panel" type="Panel" parent="PasswordGen" unique_id=271347048]
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PasswordGen/Panel" unique_id=1837092483]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PasswordGen/Panel/VBoxContainer" unique_id=1742994916]
+layout_mode = 2
+text = "Loo uus parool"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Result" type="Label" parent="PasswordGen/Panel/VBoxContainer" unique_id=847995047]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PasswordGen/Panel/VBoxContainer" unique_id=1735885510]
+layout_mode = 2
+min_value = 6.0
+max_value = 32.0
+value = 6.0
+rounded = true
+tick_count = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PasswordGen/Panel/VBoxContainer" unique_id=1038217326]
+layout_mode = 2
+alignment = 1
+
+[node name="Caps" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=1475617973]
+layout_mode = 2
+text = "Suured tähed"
+
+[node name="Nums" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=963526422]
+layout_mode = 2
+text = "Numbrid"
+
+[node name="Syms" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=931630211]
+layout_mode = 2
+text = "Eri märgid"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="ChangePasswordValue" from="HBox/InfoPanel" to="." method="_on_info_panel_change_password_value"]
 [connection signal="RefreshPasswordList" from="HBox/InfoPanel" to="." method="_on_info_panel_refresh_password_list"]
@@ -278,8 +361,14 @@ use_native_dialog = true
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/User/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_user_copy_pressed"]
 [connection signal="text_submitted" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Email/HBoxContainer/Data" to="HBox/InfoPanel" method="_on_email_text_submitted"]
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Email/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_email_copy_pressed"]
+[connection signal="text_submitted" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/Data" to="HBox/InfoPanel" method="_on_password_text_submitted"]
 [connection signal="toggled" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/Show" to="HBox/InfoPanel" method="_on_show_toggled"]
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/Copy" to="HBox/InfoPanel" method="_on_password_copy_pressed"]
+[connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Password/HBoxContainer/New" to="." method="_on_new_pressed"]
+[connection signal="value_changed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData/YearData" to="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" method="_on_year_data_value_changed"]
+[connection signal="value_changed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData/MonthData" to="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" method="_on_month_data_value_changed"]
+[connection signal="value_changed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData/DayData" to="HBox/InfoPanel/ScrollContainer/VBoxContainer/Expiry/ExpiryData" method="_on_day_data_value_changed"]
 [connection signal="text_changed" from="HBox/InfoPanel/ScrollContainer/VBoxContainer/Disc/Data" to="HBox/InfoPanel" method="_on_disc_text_changed"]
 [connection signal="pressed" from="HBox/InfoPanel/ScrollContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]
+[connection signal="value_changed" from="PasswordGen/Panel/VBoxContainer/HSlider" to="PasswordGen" method="_on_h_slider_value_changed"]

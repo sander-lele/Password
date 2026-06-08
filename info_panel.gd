@@ -61,9 +61,11 @@ func _on_email_text_submitted(new_text: String) -> void:
 
 
 func _on_disc_text_changed() -> void:
-	print("cat")
 	emit_signal("ChangePasswordValue",SelectedPassObj,"Desc",DiscText.text)
 
+func _on_password_text_submitted(new_text: String) -> void:
+		emit_signal("ChangePasswordValue",SelectedPassObj,"Password",new_text)
+		emit_signal("RefreshPasswordList")
 
 func _on_domain_copy_pressed() -> void:
 	DisplayServer.clipboard_set(DomainText.text)
