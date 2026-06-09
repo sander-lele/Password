@@ -42,23 +42,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Load" type="Button" parent="HBox/ScrollContainer/Passwords" unique_id=2047263311]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Lae üles fail"
-
-[node name="Button" type="Button" parent="HBox/ScrollContainer/Passwords" unique_id=1349209465]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Lisa parool"
-
-[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("TitleText", "IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog", "PasswordShowButton", "SaveButton", "CreateButton")]
+[node name="InfoPanel" type="Panel" parent="HBox" unique_id=23323965 node_paths=PackedStringArray("IconRect", "DomainText", "UserText", "EmailText", "PasswordText", "DiscText", "UploadDialog", "PasswordShowButton")]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 script = ExtResource("3_h2yge")
-TitleText = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Label")
 IconRect = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Icon/VBoxContainer/Data")
 DomainText = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Domain/HBoxContainer/Data")
 UserText = NodePath("MarginContainer/ScrollContainer/VBoxContainer/User/HBoxContainer/Data")
@@ -67,8 +54,6 @@ PasswordText = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Password/
 DiscText = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Disc/Data")
 UploadDialog = NodePath("../../FileDialog")
 PasswordShowButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Password/HBoxContainer/Show")
-SaveButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Save")
-CreateButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Create")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBox/InfoPanel" unique_id=533015305]
 layout_mode = 1
@@ -79,6 +64,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBox/InfoPanel/MarginContainer" unique_id=788964936]
@@ -279,18 +265,6 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 focus_mode = 1
 
-[node name="Save" type="Button" parent="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=392691587]
-visible = false
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Salvesta"
-
-[node name="Create" type="Button" parent="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=138398966]
-visible = false
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Loo"
-
 [node name="Exitbutton" type="Button" parent="HBox/InfoPanel/MarginContainer/ScrollContainer" unique_id=501407458]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -306,22 +280,10 @@ always_on_top = true
 popup_window = true
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.png")
-use_native_dialog = true
-
-[node name="LoadFile" type="FileDialog" parent="." unique_id=751804177]
-oversampling_override = 1.0
-title = "Open a File"
-unresizable = true
-always_on_top = true
-popup_window = true
-file_mode = 0
-access = 2
-filters = PackedStringArray("*.pwf")
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 use_native_dialog = true
 
 [node name="PasswordGen" type="ColorRect" parent="." unique_id=1246487249 node_paths=PackedStringArray("ResultString", "LenghtSlider", "CapCheck", "NumCheck", "SymCheck", "LenghtString")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -330,12 +292,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 script = ExtResource("9_kek77")
-ResultString = NodePath("Panel/MarginContainer/VBoxContainer/Result")
-LenghtSlider = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer3/HSlider")
-CapCheck = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Caps")
-NumCheck = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Nums")
-SymCheck = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Syms")
-LenghtString = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer2/LengthResult")
+ResultString = NodePath("Panel/VBoxContainer/Result")
+LenghtSlider = NodePath("Panel/VBoxContainer/HSlider")
+CapCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Caps")
+NumCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Nums")
+SymCheck = NodePath("Panel/VBoxContainer/HBoxContainer/Syms")
+LenghtString = NodePath("Panel/VBoxContainer/HBoxContainer2/LengthResult")
 
 [node name="Panel" type="Panel" parent="PasswordGen" unique_id=271347048]
 custom_minimum_size = Vector2(500, 250)
@@ -352,174 +314,77 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PasswordGen/Panel" unique_id=478932084]
+[node name="VBoxContainer" type="VBoxContainer" parent="PasswordGen/Panel" unique_id=1837092483]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PasswordGen/Panel/MarginContainer" unique_id=1837092483]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer" unique_id=1742994916]
+[node name="Label" type="Label" parent="PasswordGen/Panel/VBoxContainer" unique_id=1742994916]
 layout_mode = 2
 text = "Loo uus parool"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Result" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer" unique_id=847995047]
+[node name="Result" type="Label" parent="PasswordGen/Panel/VBoxContainer" unique_id=847995047]
 layout_mode = 2
-text = "6"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PasswordGen/Panel/MarginContainer/VBoxContainer" unique_id=1620526536]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PasswordGen/Panel/VBoxContainer" unique_id=1620526536]
 layout_mode = 2
 alignment = 1
 
-[node name="LengthText" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=925353036]
+[node name="LengthText" type="Label" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer2" unique_id=925353036]
 layout_mode = 2
 text = "Pikkus: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LengthResult" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1959022803]
+[node name="LengthResult" type="Label" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer2" unique_id=1959022803]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PasswordGen/Panel/MarginContainer/VBoxContainer" unique_id=14275031]
+[node name="HSlider" type="HSlider" parent="PasswordGen/Panel/VBoxContainer" unique_id=1735885510]
 layout_mode = 2
-alignment = 1
-
-[node name="Num" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=2116974609]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "6"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HSlider" type="HSlider" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1735885510]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-size_flags_horizontal = 3
 min_value = 6.0
 max_value = 32.0
 value = 6.0
 rounded = true
 tick_count = 2
 
-[node name="Num2" type="Label" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=925330791]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "32"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PasswordGen/Panel/MarginContainer/VBoxContainer" unique_id=1038217326]
+[node name="HBoxContainer" type="HBoxContainer" parent="PasswordGen/Panel/VBoxContainer" unique_id=1038217326]
 layout_mode = 2
 alignment = 1
 
-[node name="Caps" type="CheckBox" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1475617973]
+[node name="Caps" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=1475617973]
 layout_mode = 2
 text = "Suured tähed"
 
-[node name="Nums" type="CheckBox" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=963526422]
+[node name="Nums" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=963526422]
 layout_mode = 2
 text = "Numbrid"
 
-[node name="Syms" type="CheckBox" parent="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=931630211]
+[node name="Syms" type="CheckBox" parent="PasswordGen/Panel/VBoxContainer/HBoxContainer" unique_id=931630211]
 layout_mode = 2
 text = "Eri märgid"
 
-[node name="Exit" type="Button" parent="PasswordGen/Panel/MarginContainer" unique_id=1770320420]
+[node name="Exit" type="Button" parent="PasswordGen/Panel" unique_id=1770320420]
 custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-icon = ExtResource("4_1bvp3")
-icon_alignment = 1
-
-[node name="Yeah" type="Button" parent="PasswordGen/Panel/MarginContainer" unique_id=2041295122 groups=["yeah"]]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_vertical = 8
-text = "sobib"
-icon_alignment = 1
-
-[node name="LoadFilePass" type="ColorRect" parent="." unique_id=1248354854 node_paths=PackedStringArray("ResultString", "LenghtSlider", "CapCheck", "NumCheck", "SymCheck", "LenghtString")]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5019608)
-script = ExtResource("9_kek77")
-ResultString = NodePath("")
-LenghtSlider = NodePath("")
-CapCheck = NodePath("")
-NumCheck = NodePath("")
-SymCheck = NodePath("")
-LenghtString = NodePath("")
-
-[node name="Panel" type="Panel" parent="LoadFilePass" unique_id=700529697]
-custom_minimum_size = Vector2(500, 200)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -100.0
-offset_right = 250.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="LoadFilePass/Panel" unique_id=1917889004]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LoadFilePass/Panel/MarginContainer" unique_id=1500380085]
-layout_mode = 2
-theme_override_constants/separation = 50
-
-[node name="Label" type="Label" parent="LoadFilePass/Panel/MarginContainer/VBoxContainer" unique_id=1541893660]
-layout_mode = 2
-text = "Sisesta parool"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LineEdit" type="LineEdit" parent="LoadFilePass/Panel/MarginContainer/VBoxContainer" unique_id=1644628124]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Button" type="Button" parent="LoadFilePass/Panel/MarginContainer" unique_id=1190752347]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
 icon = ExtResource("4_1bvp3")
 icon_alignment = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="pressed" from="HBox/ScrollContainer/Passwords/Button" to="." method="_on_create_pressed"]
 [connection signal="ChangePasswordValue" from="HBox/InfoPanel" to="." method="_on_info_panel_change_password_value"]
 [connection signal="RefreshPasswordList" from="HBox/InfoPanel" to="." method="_on_info_panel_refresh_password_list"]
 [connection signal="gui_input" from="HBox/InfoPanel" to="." method="_on_info_panel_gui_input"]
@@ -538,14 +403,10 @@ icon_alignment = 1
 [connection signal="value_changed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Expiry/ExpiryData/MonthData" to="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Expiry/ExpiryData" method="_on_month_data_value_changed"]
 [connection signal="value_changed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Expiry/ExpiryData/DayData" to="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Expiry/ExpiryData" method="_on_day_data_value_changed"]
 [connection signal="text_changed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Disc/Data" to="HBox/InfoPanel" method="_on_disc_text_changed"]
-[connection signal="pressed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Save" to="HBox/InfoPanel" method="_on_save_pressed"]
-[connection signal="pressed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Create" to="." method="_on_password_create_pressed"]
 [connection signal="pressed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]
-[connection signal="send_password" from="PasswordGen" to="HBox/InfoPanel" method="_on_password_gen_send_password"]
-[connection signal="value_changed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" to="PasswordGen" method="_on_h_slider_value_changed"]
-[connection signal="pressed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer/Caps" to="PasswordGen" method="_on_caps_pressed"]
-[connection signal="pressed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer/Nums" to="PasswordGen" method="_on_nums_pressed"]
-[connection signal="pressed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer/Syms" to="PasswordGen" method="_on_syms_pressed"]
-[connection signal="pressed" from="PasswordGen/Panel/MarginContainer/Exit" to="PasswordGen" method="_on_exit_pressed"]
-[connection signal="pressed" from="PasswordGen/Panel/MarginContainer/Yeah" to="PasswordGen" method="_on_yeah_pressed"]
+[connection signal="value_changed" from="PasswordGen/Panel/VBoxContainer/HSlider" to="PasswordGen" method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="PasswordGen/Panel/VBoxContainer/HBoxContainer/Caps" to="PasswordGen" method="_on_caps_pressed"]
+[connection signal="pressed" from="PasswordGen/Panel/VBoxContainer/HBoxContainer/Nums" to="PasswordGen" method="_on_nums_pressed"]
+[connection signal="pressed" from="PasswordGen/Panel/VBoxContainer/HBoxContainer/Syms" to="PasswordGen" method="_on_syms_pressed"]
+[connection signal="pressed" from="PasswordGen/Panel/Exit" to="PasswordGen" method="_on_exit_pressed"]

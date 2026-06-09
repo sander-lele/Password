@@ -20,7 +20,8 @@ func create_password(Password : String, Username : String, Email : String = "", 
 	Passwords.append(PasswordObject.new(Passwords.size(),Password,Username,Email,Domain,Desc,ExpireTime,Icon))
 
 func create_password_list():
-	for PassBut : PasswordButton in PasswordHolder.get_children():
+	for PassBut : PasswordButton in get_tree().get_nodes_in_group("password_button"):
+		print("cat")
 		PassBut.queue_free()
 	for PassObj : PasswordObject in Passwords:
 		var PassButtonInst : PasswordButton = PasswordButtonScene.instantiate()
@@ -60,4 +61,15 @@ func _on_info_panel_refresh_password_list() -> void:
 
 
 func _on_new_pressed() -> void:
-	$Popup.popup_centered()
+	$PasswordGen.show()
+
+
+func _on_create_pressed() -> void:
+	$HBox/InfoPanel.show()
+	$HBox/InfoPanel.show_empty()
+
+
+func _on_password_create_pressed() -> void:
+	var PassObjData : Array = $HBox/InfoPanel.get_panel_info()
+	create_password(PassObjData[4],PassObjData[2],PassObjData[3],PassObjData[1],PassObjData[5])
+	create_password_list()
