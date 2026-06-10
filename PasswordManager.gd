@@ -21,9 +21,9 @@ func create_password(Password : String, Username : String, Email : String = "", 
 
 func create_password_list():
 	for PassBut : PasswordButton in get_tree().get_nodes_in_group("password_button"):
-		print("cat")
 		PassBut.queue_free()
 	for PassObj : PasswordObject in Passwords:
+		print("AAAAAAAAAA")
 		var PassButtonInst : PasswordButton = PasswordButtonScene.instantiate()
 		PassButtonInst.set_all(PassObj)
 		PassButtonInst.pressed.connect(password_button_pressed.bind(PassObj))
@@ -84,8 +84,7 @@ func _on_save_file_pressed() -> void:
 	await $LoadFilePass.Lineedit.text_submitted
 	var file = FileAccess.open_encrypted_with_pass("res://save_game.pwf", FileAccess.WRITE, $LoadFilePass.Pass)
 	if file:
-		var json_string = JSON.stringify(Passwords)
-		file.store_line(json_string)
+		file.store_var(Passwords)
 		file.close()
 
 func _on_load_file_file_selected(path: String) -> void:
@@ -94,15 +93,10 @@ func _on_load_file_file_selected(path: String) -> void:
 		await $LoadFilePass.Lineedit.text_submitted
 		var file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, $LoadFilePass.Pass)
 		if file:
-			var content = file.get_as_text()
-			var parsed = str_to_var(content)
-			Passwords = []
-			for i in parsed:
-				Passwords.append(i)
+			Passwords = file.get_var()
 			file.close()
-			create_password_list()
-		else:
-			print("File is not .pwf")
+	else:
+		print("File is not .pwf")
 
 
 func _on_loadfile_pressed() -> void:
