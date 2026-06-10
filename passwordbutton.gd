@@ -4,6 +4,7 @@ class_name PasswordButton
 @export var Icon : TextureRect
 @export var Domain : Label
 @export var Email : Label
+@export var Deletebutton : Button
 
 var PassObj : PasswordObject
 
@@ -21,3 +22,7 @@ func set_domain_text(Text : String = ""):
 
 func set_email_text(Text : String = ""):
 	Email.text = Text
+
+
+func _on_button_pressed() -> void:
+	queue_free()

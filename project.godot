@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 copy_button=""
 yeah=""
 password_button=""
+delete=""
 
 [physics]
 

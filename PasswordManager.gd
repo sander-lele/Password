@@ -27,12 +27,16 @@ func create_password_list():
 		var PassButtonInst : PasswordButton = PasswordButtonScene.instantiate()
 		PassButtonInst.set_all(PassObj)
 		PassButtonInst.pressed.connect(password_button_pressed.bind(PassObj))
+		PassButtonInst.Deletebutton.pressed.connect(password_delete_button_pressed.bind(PassObj))
 		PasswordHolder.add_child(PassButtonInst)
 
 func password_button_pressed(PassObj):
 	$HBox/InfoPanel.visible = true
 	$HBox/InfoPanel.show_info(PassObj)
 
+func password_delete_button_pressed(PassObj):
+	Passwords.erase(PassObj)
+	create_password_list()
 
 func _on_info_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -73,3 +77,33 @@ func _on_password_create_pressed() -> void:
 	var PassObjData : Array = $HBox/InfoPanel.get_panel_info()
 	create_password(PassObjData[4],PassObjData[2],PassObjData[3],PassObjData[1],PassObjData[5])
 	create_password_list()
+
+
+func _on_save_file_pressed() -> void:
+	$LoadFilePass.show()
+	await $LoadFilePass.Lineedit.text_submitted
+	var file = FileAccess.open_encrypted_with_pass("res://save_game.pwf", FileAccess.WRITE, $LoadFilePass.Pass)
+	if file:
+		var json_string = JSON.stringify(Passwords)
+		file.store_line(json_string)
+		file.close()
+
+func _on_load_file_file_selected(path: String) -> void:
+	if path.ends_with(".pwf"):
+		$LoadFilePass.show()
+		await $LoadFilePass.Lineedit.text_submitted
+		var file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, $LoadFilePass.Pass)
+		if file:
+			var content = file.get_as_text()
+			var parsed = str_to_var(content)
+			Passwords = []
+			for i in parsed:
+				Passwords.append(i)
+			file.close()
+			create_password_list()
+		else:
+			print("File is not .pwf")
+
+
+func _on_loadfile_pressed() -> void:
+	$LoadFile.show()

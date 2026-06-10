@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dqe0odaql33qf" path="res://icons/plus.svg" id="6_5vw27"]
 [ext_resource type="Script" uid="uid://iu2l4lggpwbw" path="res://expiry_data.gd" id="6_272bh"]
 [ext_resource type="Script" uid="uid://15htgu216xmn" path="res://password_gen.gd" id="9_kek77"]
+[ext_resource type="Script" uid="uid://cqyxlbtqtfhxe" path="res://load_file_pass.gd" id="10_4c57u"]
 
 [node name="Main" type="Control" unique_id=1464287646 node_paths=PackedStringArray("PasswordHolder")]
 top_level = true
@@ -47,6 +48,12 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lae üles fail"
+
+[node name="Load2" type="Button" parent="HBox/ScrollContainer/Passwords" unique_id=836798123]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Salvesta fail"
 
 [node name="Button" type="Button" parent="HBox/ScrollContainer/Passwords" unique_id=1349209465]
 custom_minimum_size = Vector2(0, 50)
@@ -453,7 +460,8 @@ size_flags_vertical = 8
 text = "sobib"
 icon_alignment = 1
 
-[node name="LoadFilePass" type="ColorRect" parent="." unique_id=1248354854 node_paths=PackedStringArray("ResultString", "LenghtSlider", "CapCheck", "NumCheck", "SymCheck", "LenghtString")]
+[node name="LoadFilePass" type="ColorRect" parent="." unique_id=1248354854 node_paths=PackedStringArray("Lineedit")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -461,13 +469,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
-script = ExtResource("9_kek77")
-ResultString = NodePath("")
-LenghtSlider = NodePath("")
-CapCheck = NodePath("")
-NumCheck = NodePath("")
-SymCheck = NodePath("")
-LenghtString = NodePath("")
+script = ExtResource("10_4c57u")
+Lineedit = NodePath("Panel/MarginContainer/VBoxContainer/LineEdit")
 
 [node name="Panel" type="Panel" parent="LoadFilePass" unique_id=700529697]
 custom_minimum_size = Vector2(500, 200)
@@ -507,8 +510,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="LoadFilePass/Panel/MarginContainer/VBoxContainer" unique_id=1644628124]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+secret = true
 
 [node name="Button" type="Button" parent="LoadFilePass/Panel/MarginContainer" unique_id=1190752347]
 custom_minimum_size = Vector2(50, 50)
@@ -519,6 +524,8 @@ icon = ExtResource("4_1bvp3")
 icon_alignment = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="HBox/ScrollContainer/Passwords/Load" to="." method="_on_loadfile_pressed"]
+[connection signal="pressed" from="HBox/ScrollContainer/Passwords/Load2" to="." method="_on_save_file_pressed"]
 [connection signal="pressed" from="HBox/ScrollContainer/Passwords/Button" to="." method="_on_create_pressed"]
 [connection signal="ChangePasswordValue" from="HBox/InfoPanel" to="." method="_on_info_panel_change_password_value"]
 [connection signal="RefreshPasswordList" from="HBox/InfoPanel" to="." method="_on_info_panel_refresh_password_list"]
@@ -542,6 +549,7 @@ icon_alignment = 1
 [connection signal="pressed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/VBoxContainer/Create" to="." method="_on_password_create_pressed"]
 [connection signal="pressed" from="HBox/InfoPanel/MarginContainer/ScrollContainer/Exitbutton" to="HBox/InfoPanel" method="_on_exitbutton_pressed"]
 [connection signal="file_selected" from="FileDialog" to="HBox/InfoPanel" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="LoadFile" to="." method="_on_load_file_file_selected"]
 [connection signal="send_password" from="PasswordGen" to="HBox/InfoPanel" method="_on_password_gen_send_password"]
 [connection signal="value_changed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" to="PasswordGen" method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer/Caps" to="PasswordGen" method="_on_caps_pressed"]
@@ -549,3 +557,4 @@ icon_alignment = 1
 [connection signal="pressed" from="PasswordGen/Panel/MarginContainer/VBoxContainer/HBoxContainer/Syms" to="PasswordGen" method="_on_syms_pressed"]
 [connection signal="pressed" from="PasswordGen/Panel/MarginContainer/Exit" to="PasswordGen" method="_on_exit_pressed"]
 [connection signal="pressed" from="PasswordGen/Panel/MarginContainer/Yeah" to="PasswordGen" method="_on_yeah_pressed"]
+[connection signal="text_submitted" from="LoadFilePass/Panel/MarginContainer/VBoxContainer/LineEdit" to="LoadFilePass" method="_on_line_edit_text_submitted"]
